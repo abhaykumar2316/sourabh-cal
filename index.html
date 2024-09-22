@@ -1,0 +1,137 @@
+<html>
+    <head>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                font-size: 20px;
+                font-family: Arial, sans-serif;
+                box-sizing: border-box;
+            }
+            body {
+                padding: 20px;
+                background-color: #f0f0f0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+            }
+            .container {
+                background-color: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                max-width: 500px;
+                width: 100%;
+            }
+            .container div {
+                margin-bottom: 20px;
+            }
+            label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: bold;
+            }
+            input[type="text"] {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 18px;
+            }
+            input[disabled], .readonly {
+                background-color: #e9ecef;
+            }
+            button {
+                width: 100%;
+                padding: 10px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-size: 18px;
+                cursor: pointer;
+            }
+            button:hover {
+                background-color: #0056b3;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div>
+                <label for="">New Number</label>
+                <input type="text" name="val_1" id="val_1" onkeyup="myfun()" />
+            </div>
+            <div>
+                <label for="">Control Value</label>
+                <input type="text" name="val_2" id="val_2" onkeyup="myfun()" />
+            </div>
+            <div>
+                <label for="">Result Or Percentage</label>
+                <input type="text" name="rest" id="rest" onkeyup="myfun()" />
+            </div>
+            <div>
+                <label for="">Add your number for Percentage</label>
+                <input type="text" name="per_num" id="per_num" onkeyup="myfun()" />
+            </div>
+            <div>
+                <label>Your New Percentage Now</label>
+                <input type="text" disabled name="new_per" id="new_per" class="readonly" />
+            </div>
+            <div>
+                <label for="">Add your New Value for calculating new value based on above Percentage.</label>
+                <input type="text" name="new_val" id="new_val" onkeyup="myfun()" />
+            </div>
+            <div>
+                <label>New Value from Percentage</label>
+                <input type="text" disabled name="new_per_val" id="new_per_val" class="readonly" />
+            </div>
+            <div>
+                <label>Final Result</label>
+                <input type="text" disabled name="final_val" id="final_val" class="readonly" />
+            </div>
+            <div>
+                <button type="button" onclick="resetForm()">Reset</button>
+            </div>
+        </div>
+        <script>
+            function myfun() {
+                var val1 = parseFloat(document.getElementById('val_1').value) || 0;
+                var val2 = parseFloat(document.getElementById('val_2').value) || 0;
+                var perNum = parseFloat(document.getElementById('per_num').value) || 0;
+                var newVal = parseFloat(document.getElementById('new_val').value) || 0;
+        
+                // Calculate percentage change between val1 and val2
+                var result = val2 !== 0 ? ((val1 - val2) / val2) * 100 : 0;
+        
+                // Update the result/percentage field
+                document.getElementById("rest").value = isNaN(result) ? 0 : result.toFixed(2);
+        
+                // Calculate new percentage based on input percentage number
+                var newPer = result + perNum;
+                document.getElementById("new_per").value = isNaN(newPer) ? 0 : newPer.toFixed(2);
+        
+                // Calculate the new value based on the new percentage
+                var calVal = (newVal * newPer) / 100;
+                document.getElementById("new_per_val").value = isNaN(calVal) ? 0 : calVal.toFixed(2);
+        
+                // Calculate the final result
+                var finalVal = calVal + newVal;
+                document.getElementById("final_val").value = isNaN(finalVal) ? 0 : finalVal.toFixed(2);
+            }
+        
+            function resetForm() {
+                document.getElementById('val_1').value = '';
+                document.getElementById('val_2').value = '';
+                document.getElementById("rest").value = '';
+                document.getElementById('per_num').value = '';
+                document.getElementById('new_val').value = '';
+                document.getElementById("new_per").value = '';
+                document.getElementById("new_per_val").value = '';
+                document.getElementById("final_val").value = '';
+            }
+        </script>
+        
+    </body>
+</html>
