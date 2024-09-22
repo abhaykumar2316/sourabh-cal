@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                font-size: 24px;
+            }
+            .readonly {
+                border: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <label for="">New Number</label>
+            <input type="text" name="val_1" id="val_1" onkeyup="myfun()"/>
+        </div>
+        <div>
+            <label for="">Control Value</label>
+            <input type="text" name="val_2" id="val_2" onkeyup="myfun()"/>
+        </div>
+        <div>
+            result Or Percentage <input type="text" name="rest" id="rest" onkeyup="myfun()"/>
+        </div>
+        <div>
+            <label for="">Add your number for Percentage</label>
+            <input type="text" name="per_num" id="per_num" onkeyup="myfun()"/>
+        </div>
+        <div>
+            Your New Percentage Now:- <input type="text" disabled name="new_per" id="new_per" class="readonly" />
+        </div>
+        <div>
+            <label for="">Add your New Value for calculating new value based on above Percentage.</label>
+            <input type="text" name="new_val" id="new_val" onkeyup="myfun()"/>
+        </div>
+        <div>
+            New Val from Percentage:- <input type="text" disabled name="new_per_val" id="new_per_val" class="readonly" />
+        </div>
+        <div>
+            Final Result:- <input type="text" disabled name="final_val" id="final_val" class="readonly"/>
+        </div>
+        <div>
+            <button type="button" onclick="resetForm()">Reset</button>
+        </div>
+        <script>
+            function myfun() {
+                console.log('myfun');
+                var val1 = parseFloat(document.getElementById('val_1').value);
+                var val2 = parseFloat(document.getElementById('val_2').value);
+                var result = ((val1 - val2)/val2)*100;
+                if(isNaN(result)) {
+                    result = document.getElementById("rest").value;
+                }else {
+                    document.getElementById("rest").value = result;
+                }
+                var newPer = parseFloat(result) + parseFloat(document.getElementById('per_num').value);
+                console.log('myfun '+isNaN(result));
+                document.getElementById("new_per").value = newPer;
+                var newVal = parseFloat(document.getElementById('new_val').value);
+                var calVal = ((newVal * newPer)/100);
+                document.getElementById("new_per_val").value = calVal;
+                var finalVal = calVal + newVal;
+                document.getElementById("final_val").value = finalVal;
+            }
+
+            function resetForm() {
+                document.getElementById('val_1').value = '';
+                document.getElementById('val_2').value = '';
+                document.getElementById("rest").value = '';
+                document.getElementById('per_num').value = '';
+                document.getElementById('new_val').value = '';
+                myfun();
+            }
+        </script>
+    </body>
+</html>
